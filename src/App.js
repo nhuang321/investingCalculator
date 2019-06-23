@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import './index.css'
+import Form from './Form'
+import FutureMoney from "./FutureMoney"
+import {BrowserRouter as Router, Route} from "react-router-dom"
+import moneyImg from "./img/money.png"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(){
+    super()
+    this.state= {
+      materialisticDesire: "",
+      cost: ""
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(event){
+    const {name, value} = event.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  render(){
+
+    return (
+      <div>
+      <Router>
+        <div>
+          <Route path="/" exact render={(props)=><Form {...props} state= {this.state} handleChange= {this.handleChange}/>} />
+          <Route path="/future-money" exact render={(props)=><FutureMoney {...props} state={this.state}/>}/>
+        </div>
+      </Router>
+      </div>
+    );
+  }
+  
 }
 
 export default App;
